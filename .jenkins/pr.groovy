@@ -12,14 +12,4 @@ agent('kotlin') {
     stage('Pure unitTests') {
         android.gradle "test"
     }
-
-    /**
-     * This will run lint on the flavor/buildconfig:
-     * * debug
-     * * devDebug
-     */
-    stage('lint') {
-        android.gradle "lintDebug lintDevDebug"
-        androidLint unstableTotalAll: '0', failedTotalAll: '0'
-    }
 }
