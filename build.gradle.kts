@@ -13,18 +13,18 @@ buildscript {
 
 plugins {
     id("guru.stefma.artifactorypublish")
-    id 'org.jetbrains.kotlin.jvm' version '1.3.11'
+    id("org.jetbrains.kotlin.jvm") version "1.3.11"
 }
 
-group 'net.grandcentrix.either'
-version '1.0-SNAPSHOT'
+group = "net.grandcentrix.either"
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 }
 
 androidArtifact {
