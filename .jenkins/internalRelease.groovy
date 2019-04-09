@@ -3,7 +3,7 @@ import net.grandcentrix.tools.GitHubUtils
 
 @Library('gcx@release/1.9') _
 
-agent('kotlin') {
+agent('linux') {
     stage('checkout and clean') {
         gitCheckout()
     }
