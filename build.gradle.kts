@@ -24,9 +24,9 @@ repositories {
     mavenCentral()
 }
 
-val compile by configurations
+val implementation by configurations
 dependencies {
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 }
 
 configure<ArtifactsExtension> {
