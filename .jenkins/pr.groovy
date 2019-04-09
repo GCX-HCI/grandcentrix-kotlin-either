@@ -22,10 +22,4 @@ agent('kotlin') {
         android.gradle "lintDebug lintDevDebug"
         androidLint unstableTotalAll: '0', failedTotalAll: '0'
     }
-
-    stage('Publish to artifactory') {
-        withCredentials([string(credentialsId: "artifactory-deployment", variable: 'API_KEY')]) {
-            android.gradle "artifactoryPublish -PpublishToInternal -PartifactoryUser=jenkins -PartifactoryKey=${API_KEY}"
-        }
-    }
 }
