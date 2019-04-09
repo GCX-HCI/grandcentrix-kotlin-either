@@ -1,3 +1,6 @@
+import guru.stefma.androidartifacts.ArtifactsExtension
+import guru.stefma.artifactorypublish.ArtifactoryPublishExtension
+
 buildscript {
     repositories {
         google()
@@ -5,16 +8,14 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:3.3.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.21")
         classpath("guru.stefma.artifactorypublish:artifactorypublish:1.1.0")
     }
 }
 
-plugins {
-    id("guru.stefma.artifactorypublish")
-    id("org.jetbrains.kotlin.jvm") version "1.3.11"
-}
+apply(plugin = "java-library")
+apply(plugin = "org.jetbrains.kotlin.jvm")
+apply(plugin = "guru.stefma.artifactorypublish")
 
 group = "net.grandcentrix.either"
 version = "1.0-SNAPSHOT"
@@ -23,15 +24,16 @@ repositories {
     mavenCentral()
 }
 
+val compile by configurations
 dependencies {
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 }
 
-androidArtifact {
+configure<ArtifactsExtension> {
     artifactId = "either"
 }
 
-artifactoryPublish {
+configure<ArtifactoryPublishExtension> {
     artifactoryUrl = "https://artifactory.gcxi.de"
     artifactoryRepo = if (hasProperty("publishToInternal")) "maven-internal" else "maven-playground"
     publications = arrayOf("maven")
