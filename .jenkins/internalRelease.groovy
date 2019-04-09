@@ -62,4 +62,9 @@ agent('kotlin') {
         }
     }
 
+    stage('Publish to artifactory') {
+        withCredentials([string(credentialsId: "artifactory-deployment", variable: 'API_KEY')]) {
+            android.gradle "artifactoryPublish -PpublishToInternal -PartifactoryUser=jenkins -PartifactoryKey=${API_KEY}"
+        }
+    }
 }
