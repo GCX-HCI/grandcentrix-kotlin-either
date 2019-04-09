@@ -10,9 +10,6 @@ agent('linux') {
 
     stage('Assemble the jar') {
         android.gradle "assemble"
-        // Finally upload the files
-        String releaseId = ghUtils.getReleaseId(tag)
-        ghUtils.uploadReleaseAssets(releaseId, "build/libs/net.grandcentrix.either-1.0-SNAPSHOT.jar")
     }
 
     stage('Publish to artifactory') {
