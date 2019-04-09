@@ -6,15 +6,11 @@ agent('kotlin') {
         gitCheckout()
     }
 
-    stage('Assemble app devDebug and externalRelease') {
-        android.gradle "assembleDevDebug assembleExternalRelease"
-    }
-
     /**
      * This will run all **pure** Kotlin unit tests.
      */
     stage('Pure unitTests') {
-        android.gradle ":begaconnectsdk:begaid:test :begaconnectsdk:siren:test :begaconnectsdk:begaqrparser:test"
+        android.gradle "test"
     }
 
     /**
