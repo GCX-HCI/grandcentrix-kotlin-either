@@ -6,10 +6,6 @@ package net.grandcentrix.either
  */
 sealed class Either<out F, out S> {
 
-    val isFailure get() = this is Failure
-
-    val isSuccess get() = this is Success
-
     /**
      * Calls [failed] with the [failure][Failure.failure] value if result is a [Failure]
      * or [succeeded] with the [success][Success.success] value if result is a [Success]
