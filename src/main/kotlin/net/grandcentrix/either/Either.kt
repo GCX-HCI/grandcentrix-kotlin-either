@@ -44,5 +44,5 @@ data class Success<out S>(val success: S) : Either<Nothing, S>()
 inline fun <F, S1, S2> Either<F, S1>.flatMap(succeeded: (S1) -> Either<F, S2>): Either<F, S2> =
     when (this) {
         is Failure -> this
-        is Success -> ifSucceeded(success)
+        is Success -> succeeded(success)
     }
