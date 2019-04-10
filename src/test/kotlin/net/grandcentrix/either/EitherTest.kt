@@ -9,14 +9,42 @@ import java.lang.IllegalStateException
 class EitherTest {
 
     @Test
-    fun `test that flatMap returns mapped value`() {
+    fun `test that flatMap returns mapped value on success`() {
         val eitherOriginal: Either<Int, String> = Success("original result")
         val eitherMapTo: Either<Int, String> = Success("map to result")
 
         val mappedEither = eitherOriginal.flatMap { eitherMapTo }
 
+        assertThat(mappedEither).isInstanceOf(Success::class.java)
+
         val result = mappedEither as Success
         assertThat(result.success).isEqualTo("map to result")
+    }
+
+    @Test
+    fun `test that flatMap returns mapped failure when success mapped to failure`() {
+        val eitherOriginal: Either<Int, String> = Success("original result")
+        val eitherMapTo: Either<Int, String> = Failure(42)
+
+        val mappedEither = eitherOriginal.flatMap { eitherMapTo }
+
+        assertThat(mappedEither).isInstanceOf(Failure::class.java)
+
+        val result = mappedEither as Failure
+        assertThat(result.failure).isEqualTo(42)
+    }
+
+    @Test
+    fun `test that flatMap returns original failure when failure mapped to another failure`() {
+        val eitherOriginal: Either<Int, String> = Failure(2)
+        val eitherMapTo: Either<Int, String> = Failure(42)
+
+        val mappedEither = eitherOriginal.flatMap { eitherMapTo }
+
+        assertThat(mappedEither).isInstanceOf(Failure::class.java)
+
+        val result = mappedEither as Failure
+        assertThat(result.failure).isEqualTo(2)
     }
 
     @Test
