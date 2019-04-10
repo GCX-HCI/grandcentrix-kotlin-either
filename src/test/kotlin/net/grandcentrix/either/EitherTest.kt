@@ -65,7 +65,7 @@ class EitherTest {
     }
 
     @Test
-    fun `test that fold returns error on success`() {
+    fun `test that fold returns error on failure`() {
         val either: Either<Exception, String> = Failure(IllegalStateException())
 
         var result: Exception? = null
