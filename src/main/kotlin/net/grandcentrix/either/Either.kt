@@ -38,4 +38,4 @@ data class Success<out S>(val success: S) : Either<Nothing, S>()
  * value will be then passed as the input parameter.
  */
 inline fun <F, S1, S2> Either<F, S1>.flatMap(succeeded: (S1) -> Either<F, S2>): Either<F, S2> =
-        fold({ this as Failure}, succeeded)
+    fold({ this as Failure }, succeeded)
