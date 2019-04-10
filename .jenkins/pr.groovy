@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 @Library('gcx@release/1.9') _
 
-agent('linux') {
+agent('android') {
     stage('checkout and clean') {
         gitCheckout()
     }
