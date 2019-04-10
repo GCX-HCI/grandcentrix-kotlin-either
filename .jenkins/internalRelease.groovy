@@ -16,6 +16,8 @@ agent('linux') {
     stage('Create GH Release') {
         String tag = "${TAG}"
         String branch = "${BRANCH}"
+        String title = "${TITLE}"
+        String releaseNotes = "${RELEASE_NOTES}"
 
         // Create the git TAG
         ghUtils.createAndUploadTag(tag)
@@ -24,8 +26,8 @@ agent('linux') {
         ghUtils.createRelease([
                 "tag"         : tag,
                 "tagBranch"   : branch,
-                "title"       : tag,
-                "releaseNotes": tag,
+                "title"       : title,
+                "releaseNotes": releaseNotes,
                 "asDraft"     : false,
                 "asPrerelease": true
         ])

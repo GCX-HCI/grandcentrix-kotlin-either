@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 @Library('gcx@release/1.9') _
 
-agent('kotlin') {
+agent('linux') {
     stage('checkout and clean') {
         gitCheckout()
     }
