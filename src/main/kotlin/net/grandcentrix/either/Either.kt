@@ -41,7 +41,7 @@ data class Success<out S>(val success: S) : Either<Nothing, S>()
  * @param ifSucceeded next function which should be called if this is a [Success]. The [success][Success.success]
  * value will be then passed as the input parameter.
  */
-inline fun <F, S1, S2> Either<F, S1>.flatMap(ifSucceeded: (S1) -> Either<F, S2>): Either<F, S2> =
+inline fun <F, S1, S2> Either<F, S1>.flatMap(succeeded: (S1) -> Either<F, S2>): Either<F, S2> =
     when (this) {
         is Failure -> this
         is Success -> ifSucceeded(success)
