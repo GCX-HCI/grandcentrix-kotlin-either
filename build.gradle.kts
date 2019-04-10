@@ -27,7 +27,7 @@ repositories {
 val implementation by configurations
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.junit.jupiter:junit-jupiter:5.4.0")
+    implementation("org.assertj:assertj-core:3.12.1")
 }
 
 configure<ArtifactsExtension> {
