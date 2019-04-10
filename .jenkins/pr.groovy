@@ -10,6 +10,6 @@ agent('linux') {
      * This will run all **pure** Kotlin unit tests.
      */
     stage('Pure unitTests') {
-        android.gradle "test"
+        sh "./gradlew test"
     }
 }
