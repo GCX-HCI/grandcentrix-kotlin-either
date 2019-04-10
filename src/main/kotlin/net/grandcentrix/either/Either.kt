@@ -8,7 +8,7 @@ sealed class Either<out F, out S> {
 
     val isFailure get() = this is Failure
 
-    val Success get() = this is Success
+    val isSuccess get() = this is Success
 
     /**
      * Calls [failed] with the [failure][Failure.failure] value if result is a [Failure]
