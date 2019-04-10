@@ -36,8 +36,8 @@ There is also a `fold` function which can be used to handle the end result of a 
 
 ```
 getUserData().fold(
-    failed = { failure -> showError() }
-    succeeded = { success -> showUserData() }
+    failed = { failure -> showError(failure) }
+    succeeded = { success -> showUserData(success) }
 )
 ```
 
@@ -49,7 +49,7 @@ The library is available in our internal artifactory.
 In your project main `build.gradle.kts` you need:
 
 ```
-maven(https://artifactory.gcxi.de/maven-internal") {
+maven("https://artifactory.gcxi.de/maven-internal") {
     content { includeModule("net.grandcentrix.either", "kotlin-either") }
 }
 ```
@@ -59,3 +59,5 @@ And in your module `build.gradle.kts`:
 ```
 implementation("net.grandcentrix.either:kotlin-either:1.1")
 ```
+
+For the newest version please always check the "Releases" tab.
