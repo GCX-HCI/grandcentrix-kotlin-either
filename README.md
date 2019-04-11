@@ -55,7 +55,7 @@ maven("https://artifactory.gcxi.de/maven-internal")
 And in your module `build.gradle.kts`:
 
 ```
-implementation("net.grandcentrix.either:kotlin-either:$kotlinEitherVersion")
+implementation("net.grandcentrix.either:either:$kotlinEitherVersion")
 ```
 
 For the newest version please always check the [Releases](https://github.gcxi.de/grandcentrix/kotlin-either/releases) tab.
