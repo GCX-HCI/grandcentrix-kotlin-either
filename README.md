@@ -49,15 +49,13 @@ The library is available in our internal artifactory.
 In your project main `build.gradle.kts` you need:
 
 ```
-maven("https://artifactory.gcxi.de/maven-internal") {
-    content { includeModule("net.grandcentrix.either", "kotlin-either") }
-}
+maven("https://artifactory.gcxi.de/maven-internal")
 ```
 
 And in your module `build.gradle.kts`:
 
 ```
-implementation("net.grandcentrix.either:kotlin-either:1.1")
+implementation("net.grandcentrix.either:kotlin-either:$kotlinEitherVersion")
 ```
 
-For the newest version please always check the "Releases" tab.
+For the newest version please always check the [Releases](https://github.gcxi.de/grandcentrix/kotlin-either/releases) tab.
