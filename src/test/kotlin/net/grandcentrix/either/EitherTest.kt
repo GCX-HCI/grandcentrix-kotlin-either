@@ -2,8 +2,6 @@ package net.grandcentrix.either
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import java.lang.Exception
-import java.lang.IllegalStateException
 
 
 class EitherTest {
@@ -79,5 +77,29 @@ class EitherTest {
         )
 
         assertThat(result).isInstanceOf(IllegalStateException::class.java)
+    }
+
+    @Test
+    fun `test that map returns mapped value on success`() {
+        val eitherOriginal: Either<Int, String> = Success("original result")
+
+        val mappedEither = eitherOriginal.map { true }
+
+        assertThat(mappedEither).isInstanceOf(Success::class.java)
+
+        val result = mappedEither as Success
+        assertThat(result.success).isTrue()
+    }
+
+    @Test
+    fun `test that map returns failure on failed`() {
+        val eitherOriginal: Either<String, String> = Failure("Failure")
+
+        val mappedEither = eitherOriginal.map { true }
+
+        assertThat(mappedEither).isInstanceOf(Failure::class.java)
+
+        val result = mappedEither as Failure
+        assertThat(result.failure).isEqualTo("Failure")
     }
 }
