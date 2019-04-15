@@ -25,7 +25,7 @@ You can `flatMap` as many functions returning `Either` type as you wish. The `fl
 
 If any of the flatmapped functions returns a `Failure`, the first `Failure` will be returned to the caller immediately and none of the following functions will be called. This let's you interrupt the call chain if at any of the stages something goes wrong.
 
-```
+```kotlin
 connectToServer()
     .flatMap { getUserId() }
     .flatMap { id -> getUserProfile(id) }
@@ -34,14 +34,22 @@ connectToServer()
 
 There is also a `fold` function which can be used to handle the end result of a function (or a function chain) returning an `Either`. You can provide lambdas for success and failure cases.
 
-```
+```kotlin
 getUserData().fold(
     failed = { failure -> showError(failure) }
     succeeded = { success -> showUserData(success) }
 )
 ```
 
-As both `fold` and `flatMap` functions are `inline` they can be used with suspending functions as well. So you can `flatMap` suspending with non-suspending functions in one chain.
+The `map {}` function can be used to map the **success** value to another value. 
+Imagine we get a `Either<User>` but only want to return the `id` of that user:
+
+
+```kotlin
+getUserData().map { it.id }
+```
+
+As all functions are `inline` they can be used with suspending functions as well. So you can `flatMap` suspending with non-suspending functions in one chain.
 
 ## Usage
 The library is available in our internal artifactory.
