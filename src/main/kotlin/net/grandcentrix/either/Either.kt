@@ -41,7 +41,14 @@ inline fun <F, S1, S2> Either<F, S1>.flatMap(succeeded: (S1) -> Either<F, S2>): 
     fold({ this as Failure }, succeeded)
 
 /**
+ * Map the [Success] value of the [Either] to another value.
  *
+ * You can for example map an `Success<String>` to an `Success<Int>` by
+ * using the following code:
+ * ```
+ * val fiveString: Either<Nothing, String> = Success("5")
+ * val fiveInt : Either<Nothing, Int> = fiveString.map { it.toInt() }
+ * ```
  */
 inline fun <F, S1, S2> Either<F, S1>.map(f: (S1) -> S2): Either<F, S2> =
     flatMap { Success(f(it)) }
