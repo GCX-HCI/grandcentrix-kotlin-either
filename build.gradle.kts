@@ -35,6 +35,10 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.12.2")
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
 configure<ArtifactsExtension> {
     artifactId = "either"
 }
