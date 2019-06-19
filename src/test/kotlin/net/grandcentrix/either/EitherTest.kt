@@ -102,4 +102,28 @@ class EitherTest {
         val result = mappedEither as Failure
         assertThat(result.failure).isEqualTo("Failure")
     }
+
+    @Test
+    fun `test that mapFailure returns unchanged value on success`() {
+        val eitherOriginal: Either<Int, String> = Success("original result")
+
+        val mappedEither = eitherOriginal.mapFailure { true }
+
+        assertThat(mappedEither).isInstanceOf(Success::class.java)
+
+        val result = mappedEither as Success
+        assertThat(result.success).isEqualTo("original result")
+    }
+
+    @Test
+    fun `test that mapFailure returns mapped failure on failed`() {
+        val eitherOriginal: Either<String, String> = Failure("Failure")
+
+        val mappedEither = eitherOriginal.mapFailure { true }
+
+        assertThat(mappedEither).isInstanceOf(Failure::class.java)
+
+        val result = mappedEither as Failure
+        assertThat(result.failure).isTrue()
+    }
 }
