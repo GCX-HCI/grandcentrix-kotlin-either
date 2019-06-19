@@ -52,8 +52,8 @@ getUserData().map { it.id }
 There is also a `mapFailure {}` function which is the opposite of `map`. It simply maps the `Failure` result using
 provided lambda. In case of `Success` it just passes through the success value untouched.
 
-It can be useful if you want to take some action based on the type of failure you received or if you want to map the
-some domain type exception to a public api exception:
+It can be useful if you want to take some action based on the type of failure you received or if you want to map
+a domain type exception to a public api exception:
 
 ```kotlin
 getUserDataOrFail().mapFailure {
