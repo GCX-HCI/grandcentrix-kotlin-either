@@ -18,7 +18,7 @@ apply(plugin = "org.jetbrains.kotlin.jvm")
 apply(plugin = "guru.stefma.artifactorypublish")
 
 group = "net.grandcentrix.either"
-version = "1.2"
+version = "1.3"
 
 repositories {
     mavenCentral()

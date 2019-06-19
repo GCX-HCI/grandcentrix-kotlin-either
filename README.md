@@ -36,7 +36,7 @@ There is also a `fold` function which can be used to handle the end result of a 
 
 ```kotlin
 getUserData().fold(
-    failed = { failure -> showError(failure) }
+    failed = { failure -> showError(failure) },
     succeeded = { success -> showUserData(success) }
 )
 ```
@@ -47,6 +47,22 @@ Imagine we get a `Either<User>` but only want to return the `id` of that user:
 
 ```kotlin
 getUserData().map { it.id }
+```
+
+There is also a `mapFailure {}` function which is the opposite of `map`. It simply maps the `Failure` result using
+provided lambda. In case of `Success` it just passes through the success value untouched.
+
+It can be useful if you want to take some action based on the type of failure you received or if you want to map the
+some domain type exception to a public api exception:
+
+```kotlin
+getUserDataOrFail().mapFailure {
+    when(it) {
+        is AuthorizationException -> authorizeUser()
+        is TimeoutException -> GetUserDataFailedException("Timeout")
+        else -> it // just pass through 
+    }
+}
 ```
 
 As all functions are `inline` they can be used with suspending functions as well. So you can `flatMap` suspending with non-suspending functions in one chain.
