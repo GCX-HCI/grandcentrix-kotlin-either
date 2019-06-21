@@ -29,7 +29,7 @@ agent('linux') {
                 "title"       : title,
                 "releaseNotes": releaseNotes,
                 "asDraft"     : false,
-                "asPrerelease": true
+                "asPrerelease": false
         ])
     }
 
