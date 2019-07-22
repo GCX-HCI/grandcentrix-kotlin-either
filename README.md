@@ -73,7 +73,11 @@ The library is available in our internal artifactory.
 In your project main `build.gradle.kts` you need:
 
 ```
-maven("https://artifactory.gcxi.de/maven-internal")
+repositories {
+  maven(url = "https://artifactory.gcxi.de/maven-internal")
+  // This library is also available in our public maven at
+  // https://repo.gcxi.de/maven
+}
 ```
 
 And in your module `build.gradle.kts`:
