@@ -8,12 +8,11 @@ buildscript {
     }
 
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.21")
-        classpath("guru.stefma.artifactorypublish:artifactorypublish:1.1.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.41")
+        classpath("guru.stefma.artifactorypublish:artifactorypublish:1.2.0")
     }
 }
 
-apply(plugin = "java-library")
 apply(plugin = "org.jetbrains.kotlin.jvm")
 apply(plugin = "guru.stefma.artifactorypublish")
 
@@ -44,7 +43,14 @@ configure<ArtifactsExtension> {
 }
 
 configure<ArtifactoryPublishExtension> {
-    artifactoryUrl = "https://artifactory.gcxi.de"
-    artifactoryRepo = if (hasProperty("publishToInternal")) "maven-internal" else "maven-playground"
+    artifactoryUrl = when {
+	hasProperty("publishToPublic") -> "https://repo.gcxi.de"
+	else 			       -> "https://artifactory.gcxi.de"
+    }
+    artifactoryRepo = when {
+	hasProperty("publishToInternal") -> "maven-internal" 
+	hasProperty("publishToPublic") 	 -> "maven"
+	else 				 -> "maven-playground"
+    }
     publications = arrayOf("maven")
 }
