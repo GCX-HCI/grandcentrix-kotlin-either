@@ -49,7 +49,7 @@ publishing {
         }
     }
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("kotlineither") {
             groupId = project.group.toString()
             artifactId = "either"
             version = project.version.toString()
