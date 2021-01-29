@@ -86,4 +86,4 @@ And in your module `build.gradle.kts`:
 implementation("net.grandcentrix.either:either:$kotlinEitherVersion")
 ```
 
-For the newest version please always check the [Releases](https://github.gcxi.de/grandcentrix/kotlin-either/releases) tab.
+For the newest version please always check the [Releases](https://github.com/grandcentrix/grandcentrix-kotlin-either/releases) tab.
