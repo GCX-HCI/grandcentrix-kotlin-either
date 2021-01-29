@@ -1,6 +1,3 @@
-import guru.stefma.androidartifacts.ArtifactsExtension
-import guru.stefma.artifactorypublish.ArtifactoryPublishExtension
-
 buildscript {
     repositories {
         google()
@@ -8,13 +5,15 @@ buildscript {
     }
 
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.41")
-        classpath("guru.stefma.artifactorypublish:artifactorypublish:1.2.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21")
     }
 }
 
+plugins {
+    `maven-publish`
+}
+
 apply(plugin = "org.jetbrains.kotlin.jvm")
-apply(plugin = "guru.stefma.artifactorypublish")
 
 group = "net.grandcentrix.either"
 version = "1.3"
@@ -38,19 +37,24 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-configure<ArtifactsExtension> {
-    artifactId = "either"
-}
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/grandcentrix/grandcentrix-kotlin-either")
+            credentials {
+                username = project.findProperty("github.user")?.toString() ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("github.token")?.toString() ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("either") {
+            groupId = project.group.toString()
+            artifactId = "either"
+            version = project.version.toString()
 
-configure<ArtifactoryPublishExtension> {
-    artifactoryUrl = when {
-	hasProperty("publishToPublic") -> "https://repo.gcxi.de"
-	else 			       -> "https://artifactory.gcxi.de"
+            from(components["java"])
+        }
     }
-    artifactoryRepo = when {
-	hasProperty("publishToInternal") -> "maven-internal" 
-	hasProperty("publishToPublic") 	 -> "maven"
-	else 				 -> "maven-playground"
-    }
-    publications = arrayOf("maven")
 }
