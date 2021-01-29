@@ -68,15 +68,20 @@ getUserDataOrFail().mapFailure {
 As all functions are `inline` they can be used with suspending functions as well. So you can `flatMap` suspending with non-suspending functions in one chain.
 
 ## Usage
-The library is available in our internal artifactory.
+The library is available on the gcx GitHub Packages Maven instance.
 
 In your project main `build.gradle.kts` you need:
 
 ```
 repositories {
-  maven(url = "https://artifactory.gcxi.de/maven-internal")
-  // This library is also available in our public maven at
-  // https://repo.gcxi.de/maven
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/grandcentrix/grandcentrix-kotlin-either")
+        credentials {
+            username = project.findProperty("github.user") ?: System.getenv("GITHUB_ACTOR")
+            password = project.findProperty("github.token") ?: System.getenv("GITHUB_PAT")
+        }
+    }
 }
 ```
 
