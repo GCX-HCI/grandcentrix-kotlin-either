@@ -51,7 +51,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = project.group.toString()
-            artifactId = "kotlin-either"
+            artifactId = "either"
             version = project.version.toString()
 
             from(components["java"])
