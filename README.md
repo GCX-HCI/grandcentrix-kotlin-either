@@ -70,7 +70,9 @@ getUserDataOrFail().mapFailure {
 As all functions are `inline` they can be used with suspending functions as well. So you can `flatMap` suspending with non-suspending functions in one chain.
 
 ## Usage
-The library is available on the gcx GitHub Packages Maven instance.
+[![Download](https://api.bintray.com/packages/grandcentrix/maven/grandcentrix-kotlin-either/images/download.svg) ](https://bintray.com/grandcentrix/maven/grandcentrix-kotlin-either/_latestVersion)
+
+The library is available on JCenter / Bintray.
 
 In your project main `build.gradle.kts` you need:
 
