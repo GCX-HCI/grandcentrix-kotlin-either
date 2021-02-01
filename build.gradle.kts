@@ -47,7 +47,7 @@ publishing {
     repositories {
         jcenter {
             name = "Bintray"
-            url = uri("https://api.bintray.com/maven/grandcentrix/maven/grandcentrix-kotlin-either/;publish=1")
+            url = uri("https://api.bintray.com/maven/grandcentrix/maven/kotlin-either/;publish=1")
             credentials {
                 username = project.findProperty("bintray.user")?.toString() ?: System.getenv("BINTRAY_USER")
                 password = project.findProperty("bintray.token")?.toString() ?: System.getenv("BINTRAY_TOKEN")
