@@ -70,7 +70,7 @@ getUserDataOrFail().mapFailure {
 As all functions are `inline` they can be used with suspending functions as well. So you can `flatMap` suspending with non-suspending functions in one chain.
 
 ## Usage
-[![Download](https://api.bintray.com/packages/grandcentrix/maven/grandcentrix-kotlin-either/images/download.svg) ](https://bintray.com/grandcentrix/maven/grandcentrix-kotlin-either/_latestVersion)
+[![Download](https://api.bintray.com/packages/grandcentrix/maven/kotlin-either/images/download.svg) ](https://bintray.com/grandcentrix/maven/kotlin-either/_latestVersion)
 
 The library is available on JCenter / Bintray.
 
