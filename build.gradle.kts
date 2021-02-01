@@ -10,6 +10,7 @@ buildscript {
 }
 
 plugins {
+    `java-library`
     `maven-publish`
 }
 
@@ -35,6 +36,11 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 publishing {
