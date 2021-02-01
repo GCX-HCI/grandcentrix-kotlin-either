@@ -1,5 +1,7 @@
 # kotlin-either
 
+![Publish Artifact](https://github.com/grandcentrix/grandcentrix-kotlin-either/workflows/Publish%20Artifact/badge.svg)
+
 Functional Error/Success Handling
 
 Provides an algebraic data type which is **either** a **failure** or a **success**.
