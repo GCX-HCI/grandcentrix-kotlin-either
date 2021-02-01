@@ -76,10 +76,7 @@ In your project main `build.gradle.kts` you need:
 
 ```
 repositories {
-    maven {
-        name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/grandcentrix/grandcentrix-kotlin-either")
-    }
+    jcenter()
 }
 ```
 
