@@ -1,5 +1,7 @@
 # kotlin-either
 
+![Publish Artifact](https://github.com/grandcentrix/grandcentrix-kotlin-either/workflows/Publish%20Artifact/badge.svg)
+
 Functional Error/Success Handling
 
 Provides an algebraic data type which is **either** a **failure** or a **success**.
@@ -77,10 +79,6 @@ repositories {
     maven {
         name = "GitHubPackages"
         url = uri("https://maven.pkg.github.com/grandcentrix/grandcentrix-kotlin-either")
-        credentials {
-            username = project.findProperty("github.user") ?: System.getenv("GITHUB_ACTOR")
-            password = project.findProperty("github.token") ?: System.getenv("GITHUB_PAT")
-        }
     }
 }
 ```
@@ -88,7 +86,7 @@ repositories {
 And in your module `build.gradle.kts`:
 
 ```
-implementation("net.grandcentrix.either:either:$kotlinEitherVersion")
+implementation("net.grandcentrix.either:either:1.3")
 ```
 
 For the newest version please always check the [Releases](https://github.com/grandcentrix/grandcentrix-kotlin-either/releases) tab.
