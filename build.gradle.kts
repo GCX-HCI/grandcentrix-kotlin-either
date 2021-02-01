@@ -39,12 +39,12 @@ tasks.withType<Test> {
 
 publishing {
     repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/grandcentrix/grandcentrix-kotlin-either")
+        jcenter {
+            name = "Bintray"
+            url = uri("https://api.bintray.com/maven/grandcentrix/maven/grandcentrix-kotlin-either/;publish=1")
             credentials {
-                username = project.findProperty("github.user")?.toString() ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("github.token")?.toString() ?: System.getenv("GITHUB_TOKEN")
+                username = project.findProperty("bintray.user")?.toString() ?: System.getenv("BINTRAY_USER")
+                password = project.findProperty("bintray.token")?.toString() ?: System.getenv("BINTRAY_TOKEN")
             }
         }
     }
