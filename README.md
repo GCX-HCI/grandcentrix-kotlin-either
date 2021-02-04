@@ -70,15 +70,15 @@ getUserDataOrFail().mapFailure {
 As all functions are `inline` they can be used with suspending functions as well. So you can `flatMap` suspending with non-suspending functions in one chain.
 
 ## Usage
-[![Download](https://api.bintray.com/packages/grandcentrix/maven/kotlin-either/images/download.svg) ](https://bintray.com/grandcentrix/maven/kotlin-either/_latestVersion)
-
-The library is available on JCenter / Bintray.
+The library is available on GitHub Packages.
 
 In your project main `build.gradle.kts` you need:
 
 ```
 repositories {
-    jcenter()
+    maven {
+        url = uri("https://maven.pkg.github.com/grandcentrix")
+    }
 }
 ```
 
@@ -88,4 +88,4 @@ And in your module `build.gradle.kts`:
 implementation("net.grandcentrix.either:either:1.3")
 ```
 
-For the newest version please always check the [Releases](https://github.com/grandcentrix/grandcentrix-kotlin-either/releases) tab.
+For the newest version please always check the [Packages](https://github.com/grandcentrix/grandcentrix-kotlin-either/packages/596752) page.
