@@ -45,12 +45,12 @@ java {
 
 publishing {
     repositories {
-        jcenter {
-            name = "Bintray"
-            url = uri("https://api.bintray.com/maven/grandcentrix/maven/kotlin-either/;publish=1")
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/grandcentrix/grandcentrix-kotlin-either")
             credentials {
-                username = project.findProperty("bintray.user")?.toString() ?: System.getenv("BINTRAY_USER")
-                password = project.findProperty("bintray.token")?.toString() ?: System.getenv("BINTRAY_TOKEN")
+                username = project.findProperty("github.user")?.toString() ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("github.token")?.toString() ?: System.getenv("GITHUB_TOKEN")
             }
         }
     }
