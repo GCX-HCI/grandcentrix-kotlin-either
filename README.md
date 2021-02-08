@@ -77,7 +77,7 @@ In your project main `build.gradle.kts` you need:
 ```
 repositories {
     maven {
-        url = uri("https://maven.pkg.github.com/grandcentrix")
+        url = uri("https://maven.pkg.github.com/grandcentrix/grandcentrix-kotlin-either")
     }
 }
 ```
