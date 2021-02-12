@@ -2,6 +2,7 @@ package net.grandcentrix.either
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.fail
 
 
 class EitherTest {
@@ -125,5 +126,39 @@ class EitherTest {
 
         val result = mappedEither as Failure
         assertThat(result.failure).isTrue()
+    }
+
+    @Test
+    fun `test that onSuccess is called on success`() {
+        val either: Either<Int, String> = Success("success result")
+
+        var result: String? = null
+        either
+            .onSuccess { result = it }
+
+        assertThat(result).isEqualTo("success result")
+    }
+
+    @Test
+    fun `test that onSuccess is not called on failure`() {
+        Success("success result")
+            .onFailure { fail { "Should not be called" } }
+    }
+
+    @Test
+    fun `test that onFailure is called on failure`() {
+        val either: Either<String, String> = Failure("error result")
+
+        var result: String? = null
+        either
+            .onFailure { result = "error" }
+
+        assertThat(result).isEqualTo("error")
+    }
+
+    @Test
+    fun `test that onFailure is not called on success`() {
+        Failure("success result")
+            .onSuccess { fail { "Should not be called" } }
     }
 }
