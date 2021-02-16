@@ -3,6 +3,7 @@ package net.grandcentrix.either
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.fail
 
 
 class EitherTest {
@@ -133,20 +134,15 @@ class EitherTest {
         val either: Either<Int, String> = Success("success result")
 
         var result: String? = null
-        either
-            .onSuccess { result = it }
+        either.onSuccess { result = it }
 
         assertThat(result).isEqualTo("success result")
     }
 
     @Test
-    fun `test that onFailure is not called on success`() {
-        val either: Either<String, String> = Success("success result")
-
-        var result: String? = null
-        either.onFailure { result = "onFailure" }
-
-        assertThat(result).isNull()
+    fun `test that onSuccess is not called on failure`() {
+        Success("success result")
+            .onFailure { fail { "Should not be called" } }
     }
 
     @Test
@@ -154,24 +150,20 @@ class EitherTest {
         val either: Either<String, String> = Failure("failure result")
 
         var result: String? = null
-        either.onFailure { result = "onFailure" }
+        either.onFailure { result = it }
 
-        assertThat(result).isEqualTo("onFailure")
+        assertThat(result).isEqualTo("failure result")
     }
 
     @Test
-    fun `test that onSuccess is not called on failure`() {
-        val either: Either<String, String> = Failure("failure result")
-
-        var result: String? = null
-        either.onSuccess { result = "onSuccess" }
-
-        assertThat(result).isNull()
+    fun `test that onFailure is not called on success`() {
+        Failure("success result")
+            .onSuccess { fail { "Should not be called" } }
     }
 
     @Test
     fun `test that successOrNull return null if failure`() {
-        val successOrNull = Failure("success result").successOrNull
+        val successOrNull = Failure("failure result").successOrNull
         assertNull(successOrNull)
     }
 

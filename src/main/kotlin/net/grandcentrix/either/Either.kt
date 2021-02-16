@@ -80,7 +80,7 @@ val <F> Either<F, *>.failureOrNull: F?
 
 /**
  * Executes the given code [block] when [Either] is [Success].
- * It will leave the original [Either] unchanged.
+ * @return It will leave the original [Either] unchanged.
  */
 inline fun <F, S> Either<F, S>.onSuccess(block: (success: S) -> Unit): Either<F, S> = also {
     if (it is Success<S>) block(it.success)
@@ -88,7 +88,7 @@ inline fun <F, S> Either<F, S>.onSuccess(block: (success: S) -> Unit): Either<F,
 
 /**
  * Executes the given code [block] when [Either] is [Failure].
- * It will leave the original [Either] unchanged.
+ * @return It will leave the original [Either] unchanged.
  */
 inline fun <F, S> Either<F, S>.onFailure(block: (failure: F) -> Unit): Either<F, S> = also {
     if (it is Failure<F>) block(it.failure)
