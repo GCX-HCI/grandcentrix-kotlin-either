@@ -76,17 +76,19 @@ val <S> Either<*, S>.successOrNull: S?
  * Return the [Failure] value of the [Either] if exist. If no failure value exist it will return null.
  */
 val <F> Either<F, *>.failureOrNull: F?
-    get() = if (this is Failure<F>) failure else null
+    get() = (this as? Failure<F>)?.failure
 
 /**
- * Executes the given code when [Either] is [Succes].
+ * Executes the given code [block] when [Either] is [Success].
+ * It will leave the original [Either] unchanged.
  */
 inline fun <F, S> Either<F, S>.onSuccess(block: (success: S) -> Unit): Either<F, S> = also {
     if (it is Success<S>) block(it.success)
 }
 
 /**
- * Executes the given code when [Either] is [Failure].
+ * Executes the given code [block] when [Either] is [Failure].
+ * It will leave the original [Either] unchanged.
  */
 inline fun <F, S> Either<F, S>.onFailure(block: (failure: F) -> Unit): Either<F, S> = also {
     if (it is Failure<F>) block(it.failure)

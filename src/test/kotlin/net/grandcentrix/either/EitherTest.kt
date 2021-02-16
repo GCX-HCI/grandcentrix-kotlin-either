@@ -1,8 +1,8 @@
 package net.grandcentrix.either
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.fail
 
 
 class EitherTest {
@@ -140,25 +140,44 @@ class EitherTest {
     }
 
     @Test
-    fun `test that onSuccess is not called on failure`() {
-        Success("success result")
-            .onFailure { fail { "Should not be called" } }
+    fun `test that onFailure is not called on success`() {
+        val either: Either<String, String> = Success("success result")
+
+        var result: String? = null
+        either.onFailure { result = "onFailure" }
+
+        assertThat(result).isNull()
     }
 
     @Test
     fun `test that onFailure is called on failure`() {
-        val either: Either<String, String> = Failure("error result")
+        val either: Either<String, String> = Failure("failure result")
 
         var result: String? = null
-        either
-            .onFailure { result = "error" }
+        either.onFailure { result = "onFailure" }
 
-        assertThat(result).isEqualTo("error")
+        assertThat(result).isEqualTo("onFailure")
     }
 
     @Test
-    fun `test that onFailure is not called on success`() {
-        Failure("success result")
-            .onSuccess { fail { "Should not be called" } }
+    fun `test that onSuccess is not called on failure`() {
+        val either: Either<String, String> = Failure("failure result")
+
+        var result: String? = null
+        either.onSuccess { result = "onSuccess" }
+
+        assertThat(result).isNull()
+    }
+
+    @Test
+    fun `test that successOrNull return null if failure`() {
+        val successOrNull = Failure("success result").successOrNull
+        assertNull(successOrNull)
+    }
+
+    @Test
+    fun `test that failureOrNull return null if success`() {
+        val failureOrNull = Success("success result").failureOrNull
+        assertNull(failureOrNull)
     }
 }
