@@ -85,7 +85,7 @@ repositories {
 And in your module `build.gradle.kts`:
 
 ```
-implementation("net.grandcentrix.either:either:1.3")
+implementation("net.grandcentrix.either:either:1.4")
 ```
 
 For the newest version please always check the [Packages](https://github.com/grandcentrix/grandcentrix-kotlin-either/packages/596752) page.
