@@ -65,3 +65,31 @@ inline fun <F, S1, S2> Either<F, S1>.map(f: (S1) -> S2): Either<F, S2> =
  */
 inline fun <F1, F2, S> Either<F1, S>.mapFailure(f: (F1) -> F2): Either<F2, S> =
     fold({ Failure(f(it)) }, { Success(it) })
+
+/**
+ * Return the [Success] value of the [Either] if exist. If no success value exist it will return null.
+ */
+val <S> Either<*, S>.successOrNull: S?
+    get() = (this as? Success<S>)?.success
+
+/**
+ * Return the [Failure] value of the [Either] if exist. If no failure value exist it will return null.
+ */
+val <F> Either<F, *>.failureOrNull: F?
+    get() = (this as? Failure<F>)?.failure
+
+/**
+ * Executes the given code [block] when [Either] is [Success].
+ * @return It will leave the original [Either] unchanged.
+ */
+inline fun <F, S> Either<F, S>.onSuccess(block: (success: S) -> Unit): Either<F, S> = also {
+    if (it is Success<S>) block(it.success)
+}
+
+/**
+ * Executes the given code [block] when [Either] is [Failure].
+ * @return It will leave the original [Either] unchanged.
+ */
+inline fun <F, S> Either<F, S>.onFailure(block: (failure: F) -> Unit): Either<F, S> = also {
+    if (it is Failure<F>) block(it.failure)
+}
