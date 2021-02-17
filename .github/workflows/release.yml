@@ -31,5 +31,4 @@ jobs:
       - name: Publish package
         run: ./gradlew publish
         env:
-          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
-          BINTRAY_TOKEN: ${{ secrets.BINTRAY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
