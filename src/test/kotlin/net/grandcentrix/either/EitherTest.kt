@@ -140,7 +140,7 @@ class EitherTest {
     }
 
     @Test
-    fun `test that onSuccess is not called on failure`() {
+    fun `test that onFailure is not called on success`() {
         Success("success result")
             .onFailure { fail { "Should not be called" } }
     }
@@ -156,8 +156,8 @@ class EitherTest {
     }
 
     @Test
-    fun `test that onFailure is not called on success`() {
-        Failure("success result")
+    fun `test that onSuccess is not called on failure`() {
+        Failure("failure result")
             .onSuccess { fail { "Should not be called" } }
     }
 
