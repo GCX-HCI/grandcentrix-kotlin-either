@@ -69,6 +69,14 @@ getUserDataOrFail().mapFailure {
 
 As all functions are `inline` they can be used with suspending functions as well. So you can `flatMap` suspending with non-suspending functions in one chain.
 
+Also the following helpers exist:
+```kotlin
+successOrNull // property returning the success value if Success or null if Failure
+failureOrNull // property returning the failure value if Failure or null if Success
+onSuccess {} // executes given code block as side effect if Success and returns passed Either value unchanged
+onFailure {} // executes given code block as side effect if Failure and returns passed Either value unchanged
+```
+
 ## Usage
 The library is available on GitHub Packages.
 
