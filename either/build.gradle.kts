@@ -30,16 +30,8 @@ java {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/grandcentrix/grandcentrix-kotlin-either")
-            credentials {
-                username = project.findProperty("github.user")?.toString() ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("github.token")?.toString() ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
+    repositories.add(rootProject.repositories.findByName("GitHubPackages")!!)
+
     publications {
         create<MavenPublication>("either") {
             artifactId = "either"
