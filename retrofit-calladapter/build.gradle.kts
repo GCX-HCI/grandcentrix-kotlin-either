@@ -36,7 +36,7 @@ publishing {
     repositories.add(rootProject.repositories.findByName("GitHubPackages")!!)
 
     publications {
-        create<MavenPublication>("either") {
+        create<MavenPublication>("retofit-calladapter") {
             artifactId = "retofit-calladapter"
 
             from(components["java"])
