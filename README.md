@@ -114,7 +114,7 @@ In your `build.gradle.kts` you have to add:
 implementation("net.grandcentrix.either:retrofit-calladapter:<version>")
 ``` 
 
-The version should be the same than the `Either` type version.
+The version should be the same as the `Either` type version.
 
 When attaching the `EitherCallAdapter` to the Retrofit interface instantiation like
 
@@ -127,7 +127,7 @@ Retrofit.Builder()
     .create(<Retrofit Interface>::class.java)
 ```
 
-You can use the `Either` type as a return type of a Retrofit interface function.
+you can use the `Either` type as a return type of a Retrofit interface function
 
 ```
 interface Api {
