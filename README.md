@@ -111,7 +111,7 @@ The `EitherCallAdapter` artifact is available in the same Maven repository as th
 In your `build.gradle.kts` you have to add:
 
 ```
-implementation("net.grandcentrix.either:retofit-calladapter:<version>")
+implementation("net.grandcentrix.either:retrofit-calladapter:<version>")
 ``` 
 
 The version should be the same than the `Either` type version.
@@ -124,10 +124,10 @@ Retrofit.Builder()
     …
     .addCallAdapterFactory(EitherCallAdapterFactory())
     .build()
-    .create(<Retofit Interface>::class.java)
+    .create(<Retrofit Interface>::class.java)
 ```
 
-You can use the `Either` type as a return type of a Retofit interface function.
+You can use the `Either` type as a return type of a Retrofit interface function.
 
 ```
 interface Api {
