@@ -97,3 +97,42 @@ implementation("net.grandcentrix.either:either:1.4")
 ```
 
 For the newest version please always check the [Packages](https://github.com/grandcentrix/grandcentrix-kotlin-either/packages/596752) page.
+
+## Additional Utilities
+
+### `EitherCallAdapter`
+
+A call adapter for easy use of the `Either` type as result of a Retrofit interface function.
+
+#### Usage
+
+The `EitherCallAdapter` artifact is available in the same Maven repository as the `Either` type artifact.
+
+In your `build.gradle.kts` you have to add:
+
+```
+implementation("net.grandcentrix.either:retofit-calladapter:<version>")
+``` 
+
+The version should be the same than the `Either` type version.
+
+When attaching the `EitherCallAdapter` to the Retrofit interface instantiation like
+
+```
+Retrofit.Builder()
+    .baseUrl(<Base Url>)
+    …
+    .addCallAdapterFactory(EitherCallAdapterFactory())
+    .build()
+    .create(<Retofit Interface>::class.java)
+```
+
+You can use the `Either` type as a return type of a Retofit interface function.
+
+```
+interface Api {
+    
+    @GET
+    suspend fun get(@Url url: String): Either<CallError, String>
+}
+```
