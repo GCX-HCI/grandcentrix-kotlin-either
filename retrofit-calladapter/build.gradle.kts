@@ -1,9 +1,8 @@
 plugins {
     `java-library`
     `maven-publish`
+    kotlin("jvm")
 }
-
-apply(plugin = "org.jetbrains.kotlin.jvm")
 
 repositories {
     mavenCentral()
@@ -11,7 +10,7 @@ repositories {
 
 val implementation by configurations
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    kotlin("stdlib-jdk8")
 
     compileOnly(project(":either"))
     compileOnly("com.squareup.retrofit2:retrofit:2.9.0")
