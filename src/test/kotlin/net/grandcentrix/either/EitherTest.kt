@@ -174,22 +174,22 @@ class EitherTest {
     }
 
     @Test
-    fun `test that catchEither with no error return success`() {
-        val result = catchEither { "success result" }
+    fun `when catch with no exception return success`() {
+        val result = Either.catch { "success result" }
         assertThat(result).isEqualTo(Success("success result"))
     }
 
     @Test
-    fun `test that catchEither with error return failure with error`() {
-        val error = IllegalStateException()
-        val result = catchEither { throw error }
-        assertThat(result).isEqualTo(Failure(error))
+    fun `when catch with exception return failure with exception`() {
+        val exception = IllegalStateException()
+        val result = Either.catch { throw exception }
+        assertThat(result).isEqualTo(Failure(exception))
     }
 
     @Test
-    fun `test that catchEither with no error return success`() {
+    fun `when catch with suspend function and no exception return success`() {
         runBlocking {
-            val result = catchEither {
+            val result = Either.catch {
                 "success result"
             }
             assertThat(result).isEqualTo(Success("success result"))
@@ -197,13 +197,13 @@ class EitherTest {
     }
 
     @Test
-    fun `test that catchEither with error return failure with error`() {
+    fun `when catch with suspend function and exception return failure with exception`() {
         runBlocking {
-            val error = IllegalStateException()
-            val result = catchEither {
-                throw error
+            val exception = IllegalStateException()
+            val result = Either.catch {
+                throw exception
             }
-            assertThat(result).isEqualTo(Failure(error))
+            assertThat(result).isEqualTo(Failure(exception))
         }
     }
 }
