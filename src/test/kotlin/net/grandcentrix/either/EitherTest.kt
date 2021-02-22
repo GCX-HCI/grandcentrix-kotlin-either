@@ -1,10 +1,10 @@
 package net.grandcentrix.either
 
+import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
-
 
 class EitherTest {
 
@@ -171,5 +171,39 @@ class EitherTest {
     fun `test that failureOrNull return null if success`() {
         val failureOrNull = Success("success result").failureOrNull
         assertNull(failureOrNull)
+    }
+
+    @Test
+    fun `test that catchEither with no error return success`() {
+        val result = catchEither { "success result" }
+        assertThat(result).isEqualTo(Success("success result"))
+    }
+
+    @Test
+    fun `test that catchEither with error return failure with error`() {
+        val error = IllegalStateException()
+        val result = catchEither { throw error }
+        assertThat(result).isEqualTo(Failure(error))
+    }
+
+    @Test
+    fun `test that suspendEither with no error return success`() {
+        runBlocking {
+            val result = suspendEither {
+                "success result"
+            }
+            assertThat(result).isEqualTo(Success("success result"))
+        }
+    }
+
+    @Test
+    fun `test that suspendEither with error return failure with error`() {
+        runBlocking {
+            val error = IllegalStateException()
+            val result = suspendEither {
+                throw error
+            }
+            assertThat(result).isEqualTo(Failure(error))
+        }
     }
 }
