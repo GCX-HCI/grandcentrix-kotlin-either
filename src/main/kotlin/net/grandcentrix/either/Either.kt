@@ -103,13 +103,4 @@ inline fun <T, R> T.catchEither(block: T.() -> R): Either<Throwable, R> = try {
 } catch (e: Throwable) {
     Failure(e)
 }
-
-/**
- * Executes the given suspend code [block] and returns its encapsulated result if invocation was successful,
- * catching any [Throwable] exception that was thrown from the [block] function execution and encapsulating it as a failure.
- */
-suspend inline fun <R> suspendEither(block: suspend () -> R): Either<Throwable, R> = try {
-    Success(block())
-} catch (e: Throwable) {
-    Failure(e)
 }
