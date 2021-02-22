@@ -17,7 +17,6 @@ val testImplementation by configurations
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.0")
     testImplementation("org.assertj:assertj-core:3.12.2")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
 }
 
 tasks.withType<Test> {

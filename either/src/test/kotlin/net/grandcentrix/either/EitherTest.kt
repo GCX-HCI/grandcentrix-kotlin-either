@@ -1,6 +1,5 @@
 package net.grandcentrix.either
 
-import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
@@ -184,26 +183,5 @@ class EitherTest {
         val exception = IllegalStateException()
         val result = Either.catch { throw exception }
         assertThat(result).isEqualTo(Failure(exception))
-    }
-
-    @Test
-    fun `when catch with suspend function and no exception return success`() {
-        runBlocking {
-            val result = Either.catch {
-                "success result"
-            }
-            assertThat(result).isEqualTo(Success("success result"))
-        }
-    }
-
-    @Test
-    fun `when catch with suspend function and exception return failure with exception`() {
-        runBlocking {
-            val exception = IllegalStateException()
-            val result = Either.catch {
-                throw exception
-            }
-            assertThat(result).isEqualTo(Failure(exception))
-        }
     }
 }
