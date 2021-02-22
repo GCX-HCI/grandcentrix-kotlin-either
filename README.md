@@ -77,7 +77,36 @@ onSuccess {} // executes given code block as side effect if Success and returns 
 onFailure {} // executes given code block as side effect if Failure and returns passed Either value unchanged
 ```
 
-## Usage
+## Additional Utilities
+
+### `EitherCallAdapter`
+
+A call adapter for easy use of the `Either` type as result of a Retrofit interface function.
+
+#### Usage
+
+When attaching the `EitherCallAdapter` to the Retrofit interface instantiation like
+
+```
+Retrofit.Builder()
+    .baseUrl(<Base Url>)
+    …
+    .addCallAdapterFactory(EitherCallAdapterFactory())
+    .build()
+    .create(<Retrofit Interface>::class.java)
+```
+
+you can use the `Either` type as a return type of a Retrofit interface function
+
+```
+interface Api {
+    
+    @GET
+    suspend fun get(@Url url: String): Either<CallError, String>
+}
+```
+
+## Inclusion to your Project
 The library is available on GitHub Packages.
 
 In your project main `build.gradle.kts` you need:
@@ -93,7 +122,9 @@ repositories {
 And in your module `build.gradle.kts`:
 
 ```
-implementation("net.grandcentrix.either:either:1.4")
+implementation("net.grandcentrix.either:either:<version>")
+implementation("net.grandcentrix.either:retrofit-calladapter:<version>")
 ```
 
 For the newest version please always check the [Packages](https://github.com/grandcentrix/grandcentrix-kotlin-either/packages/596752) page.
+The version should be the same for all artifacts to ensure their compatibility.

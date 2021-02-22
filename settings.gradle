@@ -1,2 +1,4 @@
 rootProject.name = 'kotlin-either'
 
+include 'either'
+include 'retrofit-calladapter'
