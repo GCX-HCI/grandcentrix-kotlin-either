@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
 
-
 class EitherTest {
 
     @Test
@@ -171,5 +170,18 @@ class EitherTest {
     fun `test that failureOrNull return null if success`() {
         val failureOrNull = Success("success result").failureOrNull
         assertNull(failureOrNull)
+    }
+
+    @Test
+    fun `when catch with no exception return success`() {
+        val result = Either.catch { "success result" }
+        assertThat(result).isEqualTo(Success("success result"))
+    }
+
+    @Test
+    fun `when catch with exception return failure with exception`() {
+        val exception = IllegalStateException()
+        val result = Either.catch { throw exception }
+        assertThat(result).isEqualTo(Failure(exception))
     }
 }

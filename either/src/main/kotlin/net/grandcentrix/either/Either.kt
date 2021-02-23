@@ -68,6 +68,19 @@ sealed class Either<out F, out S> {
     inline fun onFailure(block: (failure: F) -> Unit): Either<F, S> = also {
         if (it is Failure<F>) block(it.failure)
     }
+
+    companion object {
+
+        /**
+         * Executes the given code [block] and returns its encapsulated result if invocation was successful,
+         * catching any [Throwable] exception that was thrown from the [block] function execution and encapsulating it as a failure.
+         */
+        inline fun <S> catch(block: () -> S): Either<Throwable, S> = try {
+            Success(block())
+        } catch (e: Throwable) {
+            Failure(e)
+        }
+    }
 }
 
 data class Failure<out F>(val failure: F) : Either<F, Nothing>()
