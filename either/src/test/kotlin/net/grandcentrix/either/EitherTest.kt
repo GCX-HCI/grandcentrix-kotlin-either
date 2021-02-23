@@ -1,7 +1,7 @@
 package net.grandcentrix.either
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
 
@@ -183,5 +183,39 @@ class EitherTest {
         val exception = IllegalStateException()
         val result = Either.catch { throw exception }
         assertThat(result).isEqualTo(Failure(exception))
+    }
+
+    @Test
+    fun `when isSuccess on success return false`() {
+        assertTrue(Success("success result").isSuccess)
+    }
+
+    @Test
+    fun `when isSuccess on failure return false`() {
+        assertFalse(Failure("failure result").isSuccess)
+    }
+
+    @Test
+    fun `when isFailure on success should return false`() {
+        assertFalse(Success("success result").isFailure)
+    }
+
+    @Test
+    fun `when isFailure on failure should return true`() {
+        assertTrue(Failure("failure result").isFailure)
+    }
+
+    @Test
+    fun `when getOrElse with no failure should return success`() {
+        val either: Either<Throwable, String> = Success("success")
+        val result = either.getOrElse { "else" }
+        assertThat(result).isEqualTo("success")
+    }
+
+    @Test
+    fun `when getOrElse with failure should return else block`() {
+        val either: Either<String, String> = Failure("failure result")
+        val result = either.getOrElse { "else" }
+        assertThat(result).isEqualTo("else")
     }
 }

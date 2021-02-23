@@ -69,6 +69,18 @@ sealed class Either<out F, out S> {
         if (it is Failure<F>) block(it.failure)
     }
 
+    /**
+     * Returns `true` if this instance represents a successful outcome.
+     * In this case [isFailure] returns `false`.
+     */
+    val isSuccess: Boolean get() = this is Success
+
+    /**
+     * Returns `true` if this instance represents a failed outcome.
+     * In this case [isSuccess] returns `false`.
+     */
+    val isFailure: Boolean get() = this is Failure
+
     companion object {
 
         /**
@@ -142,6 +154,16 @@ inline fun <F, S1, S2> Either<F, S1>.map(f: (S1) -> S2): Either<F, S2> =
 )
 inline fun <F1, F2, S> Either<F1, S>.mapFailure(f: (F1) -> F2): Either<F2, S> =
     fold({ Failure(f(it)) }, { Success(it) })
+
+/**
+ * Returns the encapsulated value if this instance represents [success][Either.isSuccess] or the
+ * result of [onFailure] function for the encapsulated [Failure] if it is [failure][Either.isFailure].
+ *
+ * This function is a shorthand for `fold(onSuccess = { it }, onFailure = onFailure)` (see [fold]).
+ */
+inline fun <S, F> Either<F, S>.getOrElse(onFailure: (failure: F) -> S): S {
+    return fold(succeeded = { it }, failed = onFailure)
+}
 
 /**
  * Return the [Success] value of the [Either] if exist. If no success value exist it will return null.
