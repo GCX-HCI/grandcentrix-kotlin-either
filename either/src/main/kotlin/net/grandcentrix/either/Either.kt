@@ -1,6 +1,5 @@
 package net.grandcentrix.either
 
-
 /**
  * An algebraic data type to provide either a [Failure][F] or a [Success][S] result.
  */
@@ -15,6 +14,60 @@ sealed class Either<out F, out S> {
             is Failure -> failed(failure)
             is Success -> succeeded(success)
         }
+
+    /**
+     * Map the [Success] value of the [Either] to another value.
+     *
+     * You can for example map a `Success<String>` to a `Success<Int>` by
+     * using the following code:
+     * ```
+     * val fiveString: Either<Nothing, String> = Success("5")
+     * val fiveInt: Either<Nothing, Int> = fiveString.map { it.toInt() }
+     * ```
+     */
+    inline fun <S1> map(f: (S) -> S1): Either<F, S1> =
+        flatMap { Success(f(it)) }
+
+    /**
+     * Map the [Failure] value of the [Either] to another value. It will leave the [Success] value unchanged.
+     *
+     * You can for example map a `Failure<Throwable>` to a `Failure<String>` by
+     * using the following code:
+     * ```
+     * val failure: Either<Throwable, Nothing> = Failure(Exception("Some error happened"))
+     * val failureMessage: Either<String, Nothing> = failure.mapFailure { it.message }
+     * ```
+     */
+    inline fun <F1> mapFailure(f: (F) -> F1): Either<F1, S> =
+        fold({ Failure(f(it)) }, { Success(it) })
+
+    /**
+     * Return the [Success] value of the [Either] if exist. If no success value exist it will return null.
+     */
+    val successOrNull: S?
+        get() = (this as? Success<S>)?.success
+
+    /**
+     * Return the [Failure] value of the [Either] if exist. If no failure value exist it will return null.
+     */
+    val failureOrNull: F?
+        get() = (this as? Failure<F>)?.failure
+
+    /**
+     * Executes the given code [block] when [Either] is [Success].
+     * @return It will leave the original [Either] unchanged.
+     */
+    inline fun onSuccess(block: (success: S) -> Unit): Either<F, S> = also {
+        if (it is Success<S>) block(it.success)
+    }
+
+    /**
+     * Executes the given code [block] when [Either] is [Failure].
+     * @return It will leave the original [Either] unchanged.
+     */
+    inline fun onFailure(block: (failure: F) -> Unit): Either<F, S> = also {
+        if (it is Failure<F>) block(it.failure)
+    }
 
     companion object {
 
@@ -40,14 +93,17 @@ data class Success<out S>(val success: S) : Either<Nothing, S>()
  *
  * 1. Unwrap the result of the first call from the [Either] wrapper.
  * 2. Check if it is a [Success].
- * 3. If yes, call the next function (passed as [ifSucceeded]) with the value of the [success][Success.success]
+ * 3. If yes, call the next function (passed as [succeeded]) with the value of the [success][Success.success]
  * property as an input parameter (chain the calls).
  * 4. If no, just pass the [Failure] through as the end result of the whole call chain.
  *
  * In case any of the calls in the chain returns a [Failure], none of the subsequent flatmapped functions is called
  * and the whole chain returns this failure.
  *
- * @param ifSucceeded next function which should be called if this is a [Success]. The [success][Success.success]
+ * Note: this has to be an extension function as it uses the [F] generic type parameter in position `in`
+ * (but it's defined as `out` position in the [Either] class).
+ *
+ * @param succeeded next function which should be called if this is a [Success]. The [success][Success.success]
  * value will be then passed as the input parameter.
  */
 inline fun <F, S1, S2> Either<F, S1>.flatMap(succeeded: (S1) -> Either<F, S2>): Either<F, S2> =
@@ -63,6 +119,10 @@ inline fun <F, S1, S2> Either<F, S1>.flatMap(succeeded: (S1) -> Either<F, S2>): 
  * val fiveInt: Either<Nothing, Int> = fiveString.map { it.toInt() }
  * ```
  */
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER", "DeprecatedCallableAddReplaceWith")
+@Deprecated(
+    "Use the class method instead of extension function (simply remove import net.grandcentrix.either.map)"
+)
 inline fun <F, S1, S2> Either<F, S1>.map(f: (S1) -> S2): Either<F, S2> =
     flatMap { Success(f(it)) }
 
@@ -76,18 +136,30 @@ inline fun <F, S1, S2> Either<F, S1>.map(f: (S1) -> S2): Either<F, S2> =
  * val failureMessage: Either<String, Nothing> = failure.mapFailure { it.message }
  * ```
  */
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER", "DeprecatedCallableAddReplaceWith")
+@Deprecated(
+    "Use the class method instead of extension function (simply remove import net.grandcentrix.either.mapFailure)"
+)
 inline fun <F1, F2, S> Either<F1, S>.mapFailure(f: (F1) -> F2): Either<F2, S> =
     fold({ Failure(f(it)) }, { Success(it) })
 
 /**
  * Return the [Success] value of the [Either] if exist. If no success value exist it will return null.
  */
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER", "DeprecatedCallableAddReplaceWith")
+@Deprecated(
+    "Use the class property instead of extension property (simply remove import net.grandcentrix.either.successOrNull)"
+)
 val <S> Either<*, S>.successOrNull: S?
     get() = (this as? Success<S>)?.success
 
 /**
  * Return the [Failure] value of the [Either] if exist. If no failure value exist it will return null.
  */
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER", "DeprecatedCallableAddReplaceWith")
+@Deprecated(
+    "Use the class property instead of extension property (simply remove import net.grandcentrix.either.failureOrNull)"
+)
 val <F> Either<F, *>.failureOrNull: F?
     get() = (this as? Failure<F>)?.failure
 
@@ -95,6 +167,10 @@ val <F> Either<F, *>.failureOrNull: F?
  * Executes the given code [block] when [Either] is [Success].
  * @return It will leave the original [Either] unchanged.
  */
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER", "DeprecatedCallableAddReplaceWith")
+@Deprecated(
+    "Use the class method instead of extension function (simply remove import net.grandcentrix.either.onSuccess)"
+)
 inline fun <F, S> Either<F, S>.onSuccess(block: (success: S) -> Unit): Either<F, S> = also {
     if (it is Success<S>) block(it.success)
 }
@@ -103,6 +179,10 @@ inline fun <F, S> Either<F, S>.onSuccess(block: (success: S) -> Unit): Either<F,
  * Executes the given code [block] when [Either] is [Failure].
  * @return It will leave the original [Either] unchanged.
  */
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER", "DeprecatedCallableAddReplaceWith")
+@Deprecated(
+    "Use the class method instead of extension function (simply remove import net.grandcentrix.either.onFailure)"
+)
 inline fun <F, S> Either<F, S>.onFailure(block: (failure: F) -> Unit): Either<F, S> = also {
     if (it is Failure<F>) block(it.failure)
 }
