@@ -127,6 +127,5 @@ inline fun <F, S1, S2> Either<F, S1>.flatMap(succeeded: (S1) -> Either<F, S2>): 
  *
  * This function is a shorthand for `fold(onSuccess = { it }, onFailure = onFailure)` (see [fold]).
  */
-inline fun <S, F> Either<F, S>.getOrElse(onFailure: (failure: F) -> S): S {
-    return fold(succeeded = { it }, failed = onFailure)
-}
+inline fun <S, F> Either<F, S>.getOrElse(onFailure: (failure: F) -> S): S =
+    fold(succeeded = { it }, failed = onFailure)
