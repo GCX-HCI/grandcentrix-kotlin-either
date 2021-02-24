@@ -186,34 +186,34 @@ class EitherTest {
     }
 
     @Test
-    fun `when isSuccess on success return false`() {
+    fun `when success then isSuccess returns true`() {
         assertTrue(Success("success result").isSuccess)
     }
 
     @Test
-    fun `when isSuccess on failure return false`() {
+    fun `when failure then isSuccess returns false`() {
         assertFalse(Failure("failure result").isSuccess)
     }
 
     @Test
-    fun `when isFailure on success should return false`() {
+    fun `when success then isFailure returns false`() {
         assertFalse(Success("success result").isFailure)
     }
 
     @Test
-    fun `when isFailure on failure should return true`() {
+    fun `when failure then isFailure returns true`() {
         assertTrue(Failure("failure result").isFailure)
     }
 
     @Test
-    fun `when getOrElse with no failure should return success`() {
+    fun `when success then getOrElse returns success value`() {
         val either: Either<Throwable, String> = Success("success")
         val result = either.getOrElse { "else" }
         assertThat(result).isEqualTo("success")
     }
 
     @Test
-    fun `when getOrElse with failure should return else block`() {
+    fun `when success then getOrElse returns else block`() {
         val either: Either<String, String> = Failure("failure result")
         val result = either.getOrElse { "else" }
         assertThat(result).isEqualTo("else")
