@@ -213,7 +213,7 @@ class EitherTest {
     }
 
     @Test
-    fun `when success then getOrElse returns else block`() {
+    fun `when failure then getOrElse returns else block`() {
         val either: Either<String, String> = Failure("failure result")
         val result = either.getOrElse { "else" }
         assertThat(result).isEqualTo("else")
