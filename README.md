@@ -63,10 +63,13 @@ As all functions are `inline` they can be used with suspending functions as well
 
 Also the following helpers exist:
 ```kotlin
+isSuccess // property returning true if this instance represents a successful outcome, `false` otherwise.
+isFailure // property returning true if this instance represents a failed outcome, `false` otherwise.
 successOrNull // property returning the success value if Success or null if Failure
 failureOrNull // property returning the failure value if Failure or null if Success
 onSuccess {} // executes given code block as side effect if Success and returns passed Either value unchanged
 onFailure {} // executes given code block as side effect if Failure and returns passed Either value unchanged
+getOrElse {} // returns the encapsulated value if success or the result of the given code block
 Either.catch {} // executes the given code and returns its encapsulated result if invocation was successful and catching any exception that was thrown as a failure
 ```
 
