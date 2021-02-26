@@ -6,6 +6,28 @@ package net.grandcentrix.either
 sealed class Either<out F, out S> {
 
     /**
+     * Returns `true` if this instance represents a successful outcome, `false` otherwise.
+     */
+    val isSuccess: Boolean get() = this is Success
+
+    /**
+     * Returns `true` if this instance represents a failed outcome, `false` otherwise.
+     */
+    val isFailure: Boolean get() = this is Failure
+
+    /**
+     * Return the [Success] value of the [Either] if exist. If no success value exist it will return null.
+     */
+    val successOrNull: S?
+        get() = (this as? Success<S>)?.success
+
+    /**
+     * Return the [Failure] value of the [Either] if exist. If no failure value exist it will return null.
+     */
+    val failureOrNull: F?
+        get() = (this as? Failure<F>)?.failure
+
+    /**
      * Calls [failed] with the [failure][Failure.failure] value if result is a [Failure]
      * or [succeeded] with the [success][Success.success] value if result is a [Success]
      */
@@ -42,18 +64,6 @@ sealed class Either<out F, out S> {
         fold({ Failure(f(it)) }, { Success(it) })
 
     /**
-     * Return the [Success] value of the [Either] if exist. If no success value exist it will return null.
-     */
-    val successOrNull: S?
-        get() = (this as? Success<S>)?.success
-
-    /**
-     * Return the [Failure] value of the [Either] if exist. If no failure value exist it will return null.
-     */
-    val failureOrNull: F?
-        get() = (this as? Failure<F>)?.failure
-
-    /**
      * Executes the given code [block] when [Either] is [Success].
      * @return It will leave the original [Either] unchanged.
      */
@@ -68,16 +78,6 @@ sealed class Either<out F, out S> {
     inline fun onFailure(block: (failure: F) -> Unit): Either<F, S> = also {
         if (it is Failure<F>) block(it.failure)
     }
-
-    /**
-     * Returns `true` if this instance represents a successful outcome, `false` otherwise.
-     */
-    val isSuccess: Boolean get() = this is Success
-
-    /**
-     * Returns `true` if this instance represents a failed outcome, `false` otherwise.
-     */
-    val isFailure: Boolean get() = this is Failure
 
     companion object {
 
