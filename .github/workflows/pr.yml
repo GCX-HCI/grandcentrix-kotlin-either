@@ -39,6 +39,11 @@ jobs:
         run: ./gradlew test --continue
         continue-on-error: true
         timeout-minutes: 5
+      - name: Annotate PR with JUnit Report
+        uses: mikepenz/action-junit-report@v2.2.0
+        with:
+          report_paths: '**/build/test-results/**/TEST-*.xml'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload test and lint reports
         uses: actions/upload-artifact@v2
         with:
