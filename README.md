@@ -1,6 +1,6 @@
 # kotlin-either
 
-![Publish Artifact](https://github.com/grandcentrix/grandcentrix-kotlin-either/workflows/Publish%20Artifact/badge.svg)
+![Publish Artifact](https://github.com/GCX-HCI/grandcentrix-kotlin-either/workflows/Publish%20Artifact/badge.svg)
 
 ## Functional Error/Success Handling
 
@@ -110,7 +110,7 @@ In your project main `build.gradle.kts` you need:
 ```
 repositories {
     maven {
-        url = uri("https://maven.pkg.github.com/grandcentrix/grandcentrix-kotlin-either")
+        url = uri("https://maven.pkg.github.com/GCX-HCI/grandcentrix-kotlin-either")
     }
 }
 ```
@@ -122,5 +122,5 @@ implementation("net.grandcentrix.either:either:<version>")
 implementation("net.grandcentrix.either:retrofit-calladapter:<version>")
 ```
 
-For the newest version please always check the [Packages](https://github.com/grandcentrix/grandcentrix-kotlin-either/packages/596752) page.
+For the newest version please always check the [Packages](https://github.com/GCX-HCI/grandcentrix-kotlin-either/packages/596752) page.
 The version should be the same for all artifacts to ensure their compatibility.
