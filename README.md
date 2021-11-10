@@ -1,3 +1,6 @@
+# Deprecated! Please use Arrow Core 
+See https://arrow-kt.io/docs/0.11/apidocs/arrow-core-data/arrow.core/-either/
+
 # kotlin-either
 
 ![Publish Artifact](https://github.com/GCX-HCI/grandcentrix-kotlin-either/workflows/Publish%20Artifact/badge.svg)
