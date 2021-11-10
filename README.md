@@ -1,5 +1,5 @@
 # Deprecated! Please use Arrow Core 
-See https://arrow-kt.io/docs/0.11/apidocs/arrow-core-data/arrow.core/-either/
+See https://arrow-kt.io/docs/apidocs/arrow-core/arrow.core/-either/index.html
 
 # kotlin-either
 
